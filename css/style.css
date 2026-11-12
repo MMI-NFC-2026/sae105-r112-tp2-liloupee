@@ -1,5 +1,12 @@
-/* Le popover est fixé à l'écran par le navigateur ; ces dimensions l'étirent
-   pour couvrir toute la page. */
+/*
+ * Le navigateur positionne déjà le popover ouvert avec position: fixed et
+ * inset: 0. Ces dimensions le font couvrir tout l'écran, sans le repositionner.
+ * La transition dure 400 ms ; allow-discrete autorise aussi la transition
+ * des propriétés discrètes comme display. L'opacité initiale rend le menu
+ * transparent avant son ouverture.
+ * MDN : https://developer.mozilla.org/fr/docs/Web/CSS/Reference/Properties/transition
+ * MDN : https://developer.mozilla.org/fr/docs/Web/CSS/Reference/Properties/transition-behavior
+ */
 .menu {
   width: 100%;
   height: 100%;
@@ -12,17 +19,30 @@
   opacity: 1;
 }
 
-/* La page ne peut pas défiler derrière le menu tant qu'il est ouvert. */
+/*
+ * :popover-open ne sélectionne le menu que lorsqu'il est affiché.
+ * :has() permet ici de détecter cet état depuis la racine html et de bloquer
+ * le défilement de la page derrière le menu.
+ * MDN : https://developer.mozilla.org/fr/docs/Web/CSS/Reference/Selectors/:popover-open
+ * MDN : https://developer.mozilla.org/fr/docs/Web/CSS/Reference/Selectors/:has
+ */
 html:has(.menu:popover-open) {
   overflow: hidden;
 }
 
-/* Le curseur indique que les boutons hamburger sont cliquables. */
+/* Le curseur pointer indique que le bouton hamburger est cliquable.
+   MDN : https://developer.mozilla.org/fr/docs/Web/CSS/Reference/Properties/cursor */
 .burger {
   cursor: pointer;
 }
 
-/* Le bouton de fermeture pivote à l'ouverture et revient en place à la fermeture. */
+/*
+ * Le bouton de fermeture pivote de 90 degrés lorsque le menu s'ouvre. La
+ * transition de transform le fait revenir progressivement à sa position
+ * initiale lorsque le menu se ferme.
+ * MDN : https://developer.mozilla.org/fr/docs/Web/CSS/Reference/Properties/transform
+ * MDN : https://developer.mozilla.org/fr/docs/Web/CSS/Guides/Transitions/Using
+ */
 .menu .burger--close {
   transform: none;
   transition: transform 400ms;
@@ -32,7 +52,12 @@ html:has(.menu:popover-open) {
   transform: rotate(90deg);
 }
 
-/* L'état initial permet d'animer l'apparition malgré display: none. */
+/*
+ * Un popover fermé est en display: none ; @starting-style fournit l'état de
+ * départ transparent (et le bouton non tourné) pour animer sa première
+ * apparition malgré l'absence d'état affiché précédent.
+ * MDN : https://developer.mozilla.org/fr/docs/Web/CSS/Reference/At-rules/@starting-style
+ */
 @starting-style {
   .menu:popover-open {
     opacity: 0;
@@ -43,7 +68,11 @@ html:has(.menu:popover-open) {
   }
 }
 
-/* Respecte la préférence système pour limiter les animations. */
+/*
+ * Si la personne a demandé une réduction des mouvements dans son système,
+ * les transitions sont désactivées.
+ * MDN : https://developer.mozilla.org/fr/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion
+ */
 @media (prefers-reduced-motion: reduce) {
   .menu,
   .menu .burger--close {

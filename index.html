@@ -11,14 +11,30 @@
 <body>
   <header class="header header--home">
 
-    <!-- Le bouton ouvre et ferme le popover sans JavaScript. -->
+    <!--
+      popovertarget relie le bouton au menu grâce à son id. Le popover "auto"
+      s'ouvre et se ferme sans JavaScript ; Échap ou un clic à l'extérieur
+      permettent aussi de le fermer.
+      MDN : https://developer.mozilla.org/fr/docs/Web/HTML/Reference/Elements/button#popovertarget
+      MDN : https://developer.mozilla.org/fr/docs/Web/HTML/Reference/Global_attributes/popover
+    -->
     <button class="burger" type="button" popovertarget="menu" aria-label="Menu">
       🍔
     </button>
 
-    <!-- Le popover est masqué par défaut et peut être ciblé par son identifiant. -->
+    <!--
+      L'attribut popover masque le menu tant qu'il n'est pas ouvert. Son id
+      unique permet aux boutons de le cibler ; ouvert, il apparaît dans la
+      couche supérieure du navigateur.
+      MDN : https://developer.mozilla.org/fr/docs/Web/HTML/Reference/Global_attributes/popover
+    -->
     <nav class="menu" id="menu" popover aria-label="Main menu">
-      <!-- autofocus place le focus sur ce bouton à l'ouverture du menu. -->
+      <!--
+        popovertargetaction="hide" ferme explicitement le menu. autofocus
+        place le focus sur ce bouton à l'ouverture du popover.
+        MDN : https://developer.mozilla.org/fr/docs/Web/HTML/Reference/Elements/button#popovertargetaction
+        MDN : https://developer.mozilla.org/fr/docs/Web/HTML/Reference/Global_attributes/autofocus
+      -->
       <button
         class="menu__close burger burger--close"
         type="button"
