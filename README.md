@@ -1,6 +1,6 @@
-Nom :
-Prénom :
-URL Netlify :
+Nom : POVEDA
+Prénom : Lilou
+URL Netlify : https://tp2-poveda-lilou.netlify.app
 
 État initial : le bouton 🍔 ne fait rien, et la <nav> s'affiche en permanence sous le bouton (en double). On cherche à mettre en place un menu avec `popover`.
 
